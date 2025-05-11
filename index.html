@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>SoftSell - Software Resale</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e5e7eb;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #3b82f6;
+      border-radius: 10px;
+      border: 2px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+<div id="root" class="min-h-screen max-w-full overflow-x-hidden"></div>
+
+<script type="text/javascript">
+  const e = React.createElement;
+  const {useState} = React;
+
+  const IconUpload = () => (
+    e('svg', {className: "w-12 h-12 mx-auto mb-4 text-blue-600", fill: "none", stroke: "currentColor", strokeWidth: "2", viewBox: "0 0 24 24", xmlns: "http://www.w3.org/2000/svg"},
+      [
+        e('path', {strokeLinecap: "round", strokeLinejoin:"round", d: "M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"}),
+        e('polyline', {strokeLinecap:"round", strokeLinejoin:"round", points: "8 11 12 15 16 11"}),
+        e('line', {strokeLinecap:"round", strokeLinejoin:"round", x1:"12", y1:"15", x2:"12", y2:"3"})
+      ]
+    )
+  );
+
+  const IconValuation = () => (
+    e('svg', {className: "w-12 h-12 mx-auto mb-4 text-blue-600", fill:"none", stroke:"currentColor", strokeWidth:"2", viewBox:"0 0 24 24", xmlns:"http://www.w3.org/2000/svg"},
+      [
+        e('circle', {cx:"12", cy:"12", r:"10", strokeLinecap:"round", strokeLinejoin:"round"}),
+        e('path', {strokeLinecap:"round", strokeLinejoin:"round", d:"M12 6v6l4 2"})
+      ]
+    )
+  );
+
+  const IconPayment = () => (
+    e('svg', {className: "w-12 h-12 mx-auto mb-4 text-blue-600", fill:"none", stroke:"currentColor", strokeWidth:"2", viewBox:"0 0 24 24", xmlns:"http://www.w3.org/2000/svg"},
+      [
+        e('rect', {x:"2", y:"7", width:"20", height:"10", rx:"2", ry:"2", strokeLinecap:"round", strokeLinejoin:"round"}),
+        e('line', {x1:"2", y1:"7", x2:"22", y2:"7", strokeLinecap:"round", strokeLinejoin:"round"}),
+        e('circle', {cx:"12", cy:"12", r:"3"})
+      ]
+    )
+  );
+
+  const HeroSection = () => (
+    e('section', {className:"bg-gradient-to-r from-blue-700 to-blue-500 text-white px-6 py-20 text-center"},
+      [
+        e('h1', {className:"text-4xl md:text-5xl font-extrabold max-w-4xl mx-auto"}, "Sell Your Software Licenses Effortlessly"),
+        e('p', {className:"mt-4 text-lg md:text-xl max-w-2xl mx-auto"}, "Get the best value for your unused software licenses - fast, secure, and hassle-free."),
+        e('button', {
+          className:"mt-8 bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition",
+          onClick: () => document.getElementById('contact').scrollIntoView({behavior: 'smooth'})
+        }, "Get a Quote")
+      ]
+    )
+  );
+
+  const HowItWorks = () => (
+    e('section', {className:"py-20 px-6 max-w-5xl mx-auto"},
+      [
+        e('h2', {className:"text-center text-3xl font-bold mb-14"}, "How It Works"),
+        e('div', {className:"flex flex-col md:flex-row justify-around gap-10"},
+          [
+            e('div', {key:"step1", className:"max-w-xs text-center"},
+              [
+                e(IconUpload, {key:"icon"}),
+                e('h3', {className:"font-semibold text-xl mb-2"}, "Upload License"),
+                e('p', {className:"text-gray-600"}, "Submit your software license details easily through our form.")
+              ]
+            ),
+            e('div', {key:"step2", className:"max-w-xs text-center"},
+              [
+                e(IconValuation, {key:"icon"}),
+                e('h3', {className:"font-semibold text-xl mb-2"}, "Get Valuation"),
+                e('p', {className:"text-gray-600"}, "Receive a fair, market-based valuation quickly.")
+              ]
+            ),
+            e('div', {key:"step3", className:"max-w-xs text-center"},
+              [
+                e(IconPayment, {key:"icon"}),
+                e('h3', {className:"font-semibold text-xl mb-2"}, "Get Paid"),
+                e('p', {className:"text-gray-600"}, "Enjoy fast and secure payment once approved.")
+              ]
+            )
+          ]
+        )
+      ]
+    )
+  );
+
+  const ChooseIconTrust = () => (
+    e('svg', {className: "w-10 h-10 text-blue-600 mr-4 flex-shrink-0", fill:"none", stroke:"currentColor", strokeWidth:"2", viewBox:"0 0 24 24", xmlns:"http://www.w3.org/2000/svg"},
+      e('path', {strokeLinecap:"round", strokeLinejoin:"round", d:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"})
+    )
+  );
+
+  const ChooseIconSpeed = () => (
+    e('svg', {className: "w-10 h-10 text-blue-600 mr-4 flex-shrink-0", fill:"none", stroke:"currentColor", strokeWidth:"2", viewBox:"0 0 24 24", xmlns:"http://www.w3.org/2000/svg"},
+      e('path', {strokeLinecap:"round", strokeLinejoin:"round", d:"M12 1v11h9"})
+    )
+  );
+
+  const ChooseIconSecurity = () => (
+    e('svg', {className:"w-10 h-10 text-blue-600 mr-4 flex-shrink-0", fill:"none", stroke:"currentColor", strokeWidth:"2", viewBox:"0 0 24 24", xmlns:"http://www.w3.org/2000/svg"},
+      e('path', {strokeLinecap:"round", strokeLinejoin:"round", d:"M12 11c2 0 3 2 3 2H9s1-2 3-2z"})
+    )
+  );
+
+  const WhyChooseUs = () => {
+    const points = [
+      {icon:ChooseIconTrust, title:"Trusted Experts", description:"Experience you can rely on to get fair pricing."},
+      {icon:ChooseIconSpeed, title:"Fast Transactions", description:"Payment within 24 hours of approval."},
+      {icon:ChooseIconSecurity, title:"Secure Process", description:"Your data is always protected with us."},
+      {icon:ChooseIconTrust, title:"Dedicated Support", description:"We’re here to help you every step of the way."},
+    ];
+    return e('section', {className:"py-20 px-6 bg-white max-w-5xl mx-auto"},
+      [
+        e('h2', {className:"text-center text-3xl font-bold mb-14"}, "Why Choose Us"),
+        e('div', {className:"grid grid-cols-1 md:grid-cols-2 gap-10"},
+          points.map(({icon: Icon, title, description}, i) =>
+            e('div', {key:i, className:"flex items-start bg-gray-50 rounded-lg p-6 shadow-sm"},
+              [
+                e(Icon, {key:"icon"}),
+                e('div', {key:"content"},
+                  [
+                    e('h3', {className:"font-semibold text-lg mb-1"}, title),
+                    e('p', {className:"text-gray-600"}, description)
+                  ]
+                )
+              ]
+            )
+          )
+        )
+      ]
+    );
+  };
+
+  const Testimonial = ({name, role, company, review}) => (
+    e('div', {className:"bg-white rounded-lg shadow p-6 max-w-md mx-auto"},
+      [
+        e('p', {className:"italic text-gray-700 mb-4"}, `"${review}"`),
+        e('p', {className:"font-semibold"}, name),
+        e('p', {className:"text-sm text-gray-500"}, `${role} at ${company}`)
+      ]
+    )
+  );
+
+  const Testimonials = () => (
+    e('section', {className:"py-20 px-6 max-w-5xl mx-auto bg-gradient-to-r from-blue-50 to-white rounded-lg"},
+      [
+        e('h2', {className:"text-center text-3xl font-bold mb-14"}, "What Our Customers Say"),
+        e('div', {className:"flex flex-col md:flex-row justify-center gap-10"},
+          [
+            e(Testimonial, {
+              key:"t1",
+              name:"Emily R.",
+              role:"IT Manager",
+              company:"Globex Corp",
+              review:"SoftSell made selling our unused licenses simple and profitable. Highly recommend!"
+            }),
+            e(Testimonial, {
+              key:"t2",
+              name:"Mark S.",
+              role:"Finance Director",
+              company:"Initech",
+              review:"Fast, secure transactions and great customer support throughout the process."
+            }),
+          ]
+        )
+      ]
+    )
+  );
+
+  const ContactForm = () => {
+    const [form, setForm] = useState({
+      name: '',
+      email: '',
+      company: '',
+      licenseType: '',
+      message: ''
+    });
+    const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false);
+
+    const licenseOptions = [
+      "Microsoft Office",
+      "Adobe Creative Cloud",
+      "Autodesk AutoCAD",
+      "Other"
+    ];
+
+    const validate = () => {
+      let newErrors = {};
+      if (!form.name.trim()) newErrors.name = "Name is required.";
+      if (!form.email.trim()) newErrors.email = "Email is required.";
+      else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(form.email)) newErrors.email = "Invalid email address.";
+      }
+      if (!form.company.trim()) newErrors.company = "Company is required.";
+      if (!form.licenseType) newErrors.licenseType = "Please select a license type.";
+      if (!form.message.trim()) newErrors.message = "Message is required.";
+      setErrors(newErrors);
+      return Object.keys(newErrors).length === 0;
+    };
+
+    const handleChange = e => {
+      setForm({...form, [e.target.name]: e.target.value});
+      if(errors[e.target.name]){
+        setErrors({...errors, [e.target.name]: null});
+      }
+    };
+
+    const handleSubmit = e => {
+      e.preventDefault();
+      if(validate()){
+        setSubmitted(true);
+      }
+    };
+
+    return e('section', {id:"contact", className:"py-20 px-6 max-w-3xl mx-auto bg-white rounded-lg shadow-lg"},
+      [
+        e('h2', {className:"text-3xl font-bold mb-10 text-center"}, "Contact / Get a Quote"),
+        submitted
+          ? e('div', {className:"text-center text-green-600 font-semibold text-lg"}, "Thank you for contacting us! We'll get back to you soon.")
+          : e('form', {onSubmit:handleSubmit, noValidate:true, className:"space-y-6"},
+              [
+                e('div', {className:"flex flex-col"},
+                  [
+                    e('label', {htmlFor:"name", className:"mb-1 font-semibold"}, "Name*"),
+                    e('input', {
+                      type:'text',
+                      name:'name',
+                      id:'name',
+                      value:form.name,
+                      onChange:handleChange,
+                      className:`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.name ? 'border-red-500' : 'border-gray-300'}`
+                    }),
+                    errors.name && e('span', {className:"text-red-500 text-sm mt-1"}, errors.name)
+                  ]
+                ),
+                e('div', {className:"flex flex-col"},
+                  [
+                    e('label', {htmlFor:"email", className:"mb-1 font-semibold"}, "Email*"),
+                    e('input', {
+                      type:'email',
+                      name:'email',
+                      id:'email',
+                      value:form.email,
+                      onChange:handleChange,
+                      className:`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.email ? 'border-red-500' : 'border-gray-300'}`
+                    }),
+                    errors.email && e('span', {className:"text-red-500 text-sm mt-1"}, errors.email)
+                  ]
+                ),
+                e('div', {className:"flex flex-col"},
+                  [
+                    e('label', {htmlFor:"company", className:"mb-1 font-semibold"}, "Company*"),
+                    e('input', {
+                      type:'text',
+                      name:'company',
+                      id:'company',
+                      value:form.company,
+                      onChange:handleChange,
+                      className:`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.company ? 'border-red-500' : 'border-gray-300'}`
+                    }),
+                    errors.company && e('span', {className:"text-red-500 text-sm mt-1"}, errors.company)
+                  ]
+                ),
+                e('div', {className:"flex flex-col"},
+                  [
+                    e('label', {htmlFor:"licenseType", className:"mb-1 font-semibold"}, "License Type*"),
+                    e('select', {
+                      name:'licenseType',
+                      id:'licenseType',
+                      value:form.licenseType,
+                      onChange:handleChange,
+                      className:`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.licenseType ? 'border-red-500' : 'border-gray-300'}`
+                    },
+                      e('option', {value:""}, "Select a license type"),
+                      licenseOptions.map(l => e('option', {key:l, value:l}, l))
+                    ),
+                    errors.licenseType && e('span', {className:"text-red-500 text-sm mt-1"}, errors.licenseType)
+                  ]
+                ),
+                e('div', {className:"flex flex-col"},
+                  [
+                    e('label', {htmlFor:"message", className:"mb-1 font-semibold"}, "Message*"),
+                    e('textarea', {
+                      name:'message',
+                      id:'message',
+                      rows:'4',
+                      value:form.message,
+                      onChange:handleChange,
+                      className:`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y ${errors.message ? 'border-red-500' : 'border-gray-300'}`
+                    }),
+                    errors.message && e('span', {className:"text-red-500 text-sm mt-1"}, errors.message)
+                  ]
+                ),
+                e('button', {
+                  type:'submit',
+                  className:"bg-blue-600 text-white font-semibold py-3 rounded hover:bg-blue-700 transition"
+                }, "Submit")
+              ]
+            )
+      ]
+    );
+  };
+
+  const Footer = () => (
+    e('footer', {className:"text-center py-8 text-gray-500 text-sm"},
+      "© 2025 SoftSell. All rights reserved."
+    )
+  );
+
+  const App = () => (
+    e(React.Fragment, null,
+      e(HeroSection),
+      e(HowItWorks),
+      e(WhyChooseUs),
+      e(Testimonials),
+      e(ContactForm),
+      e(Footer)
+    )
+  );
+
+  ReactDOM.createRoot(document.getElementById('root')).render(e(App));
+</script>
+</body>
+</html>
+
